@@ -7,28 +7,32 @@
 </head>
 <body>
 
-<form class="row g-3" style="width: 30%; margin: auto;">
+<form class="row g-3" style="width: 30%; margin: auto;" method="post">
   <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">First name</label>
-    <input type="email" class="form-control" id="inputEmail4" placeholder="First name">
+    <label for="inputFirstName" class="form-label">First name</label>
+    <input name="firstName" class="form-control" id="inputFirstName" placeholder="First name">
   </div>
   <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Last name</label>
-    <input type="password" class="form-control" id="inputPassword4" placeholder="Last name">
+    <label for="inputLastName" class="form-label">Last name</label>
+    <input name="lastName" class="form-control" id="inputLastName" placeholder="Last name">
   </div>
   <div class="col-md-6">
-    <label for="inputAddress" class="form-label">User name</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="User name">
+    <label for="inputUserName" class="form-label">User name</label>
+    <input name="userName" class="form-control" id="inputUserName" placeholder="User name">
   </div>
   <div class="col-md-6">
-    <label for="inputAddress2" class="form-label">Password</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Password">
+    <label for="inputPassword" class="form-label">Password</label>
+    <input name="password" class="form-control" id="inputPassword" placeholder="Password">
   </div>
 
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Register</button>
-    <button type="submit" class="btn btn-primary">Back to main page</button>
+    <button formaction="/registration" formmethod="post" class="btn btn-primary">Register</button>
+    <button formaction="/" class="btn btn-primary">Back to main page</button>
   </div>
+
+  <p th:if="${isAlreadyExists}" style="color: red">User name already exists. Give another one.</p>
+  <p th:if="${isAnyOfThemEmpty}">Please fill up every textboxes.</p>
+  <p th:if="${isSuccessful}" style="color: green">Successfully registered. Go back to main page to login.</p>
 </form>
 
 </body>
