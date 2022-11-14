@@ -17,28 +17,26 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
             </ul>
-            <form class="d-flex" role="search">
+            <form class="d-flex" style='vertical-align: center;'>
 
-                <input class="form-control me-2" placeholder="Username">
-                <input class="form-control me-2" placeholder="Password">
-                <button formaction="/login" formmethod="post" class="btn btn-outline-success"  style='margin-right:10px'>Login</button>
-                <button formaction="/registration" formmethod="post" class="btn btn-outline-success">Registration</button>
+                <div style='position: relative'>
+                <h5 class="text-muted" style='margin-right:10px; horiz-align: center'>
+                    Hello, user
+                </h5>
+                </div>
+
+                <button class="btn btn-outline-success">Logout</button>
+
             </form>
         </div>
     </div>
 </nav>
-<p style="text-align: right; color: red"
-th:if="${isNull}" th:text="${result}"
->Please try again. </p>
-<p style="text-align: right; color: red"
-   th:if="${isExists}" th:text="${result}"
->Please try again. </p>
 
 <div class="list-group center" style="width: 70%; margin: auto;">
     <a class="list-group-item list-group-item-action active" aria-current="true">
         <div class="d-flex w-100 justify-content-between">
-            <h5> Title </h5>
-            <small>4 days ago</small>
+            <h5 class="mb-1">Title</h5>
+            <small>3 days ago</small>
         </div>
         <p class="mb-1">Description</p>
         <small>Comments
@@ -46,8 +44,18 @@ th:if="${isNull}" th:text="${result}"
                 <li class="list-group-item">username</li>
                 <li class="list-group-item">creation date</li>
                 <li class="list-group-item">comment</li>
+                <button class="btn btn-outline-warning" style="font-size: 13px; margin-left: 10px">Delete</button>
             </ul>
+
+            <div class="input-group input-group-sm mb-3" style=" margin-top:10px;">
+                <button class="btn btn-outline-warning" style="font-size: 13px;">
+                    Add comment
+                </button>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Type your comment here">
+            </div>
         </small>
+
+
     </a>
     <a class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
@@ -60,7 +68,15 @@ th:if="${isNull}" th:text="${result}"
                 <li class="list-group-item">username</li>
                 <li class="list-group-item">creation date</li>
                 <li class="list-group-item">comment</li>
+                <button class="btn btn-outline-dark" style="font-size: 13px; margin-left: 10px">Delete</button>
             </ul>
+
+            <div class="input-group input-group-sm mb-3" style=" margin-top:10px;">
+                <button class="btn btn-outline-dark" style="font-size: 13px;">
+                    Add comment
+                </button>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Type your comment here">
+            </div>
         </small>
     </a>
 </div>
