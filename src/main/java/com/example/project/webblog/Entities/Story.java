@@ -13,13 +13,18 @@ public class Story {
     private Long id;
 
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String content;
-    private LocalDateTime creationDate;
+    private String creationDate;
     private long userId;
 
-    public Story(String title, String content, long userId) {
+    public Story() {
+    }
+
+    public Story(String title, String content, String creationDate, long userId) {
         this.title = title;
         this.content = content;
+        this.creationDate = creationDate;
         this.userId = userId;
     }
 
@@ -43,11 +48,11 @@ public class Story {
         this.content = content;
     }
 
-    public LocalDateTime getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 

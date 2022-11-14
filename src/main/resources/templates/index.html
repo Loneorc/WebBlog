@@ -34,28 +34,14 @@ th:if="${isNull}" th:text="${result}"
    th:if="${isExists}" th:text="${result}"
 >Please try again. </p>
 
-<div class="list-group center" style="width: 70%; margin: auto;">
+<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"  th:each="story: ${story}">
     <a class="list-group-item list-group-item-action active" aria-current="true">
         <div class="d-flex w-100 justify-content-between">
-            <h5> Title </h5>
-            <small>4 days ago</small>
+            <h5 th:text="${story.title}"> </h5>
+            <small th:text="${story.creationDate}"></small>
         </div>
-        <p class="mb-1">Description</p>
+        <p class="mb-1" th:text="${story.content}"></p>
         <small>Comments
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">username</li>
-                <li class="list-group-item">creation date</li>
-                <li class="list-group-item">comment</li>
-            </ul>
-        </small>
-    </a>
-    <a class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">List group item heading</h5>
-            <small class="text-muted">3 days ago</small>
-        </div>
-        <p class="mb-1">Some placeholder content in a paragraph.</p>
-        <small class="text-muted">Comments
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">username</li>
                 <li class="list-group-item">creation date</li>

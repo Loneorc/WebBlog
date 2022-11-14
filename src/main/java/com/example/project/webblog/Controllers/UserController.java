@@ -1,6 +1,7 @@
 package com.example.project.webblog.Controllers;
 
 import com.example.project.webblog.Entities.User;
+import com.example.project.webblog.Services.StoryService;
 import com.example.project.webblog.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
     private UserService userService;
+    private StoryService storyService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, StoryService storyService) {
         this.userService = userService;
+        this.storyService = storyService;
     }
 
     @RequestMapping("/")
-    public String displayMain() {
+    public String displayMain(Model model) {
+        storyService.printStory(model);
         return "index";
     }
 
