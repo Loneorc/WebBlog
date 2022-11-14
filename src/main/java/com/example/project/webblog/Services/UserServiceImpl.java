@@ -22,27 +22,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String registration(String firstName, String lastName, String userName, String password, Model model) {
-//        if (firstName.isEmpty() && lastName.isEmpty() && userName.isEmpty() && password.isEmpty()) {
-//            model.addAttribute("isFirstTime", true);
-//
-//            return "registration";
-//        }
-
-//        model.addAttribute("isFirstTime", false);
-//
-//        if (userRepository.existsUserByUserName(userName)
-//                || firstName.isEmpty() || lastName.isEmpty() || userName.isEmpty() || password.isEmpty()) {
-//            model.addAttribute("isSuccessful", false);
-//
-//            return "registration";
-//        }
-//
-//        User user = new User(firstName, lastName, userName, password);
-//        userRepository.save(user);
-//
-//        model.addAttribute("isSuccessful", true);
-//
-//        return "registration";
 
         if (firstName == null || lastName == null || userName == null || password == null) {
             return "registration";
