@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String displayRegistration(@RequestParam(required = false, defaultValue = "") String firstName, @RequestParam(required = false, defaultValue = "") String lastName, @RequestParam(required = false, defaultValue = "") String userName, @RequestParam(required = false, defaultValue = "") String password, Model model) {
+    public String displayRegistration(@RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName, @RequestParam(required = false) String userName, @RequestParam(required = false) String password, Model model) {
         return userService.registration(firstName, lastName, userName, password, model);
     }
 }

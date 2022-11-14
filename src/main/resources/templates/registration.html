@@ -31,7 +31,7 @@
   </div>
 
   <p th:if="${isAlreadyExists}" style="color: red">User name already exists. Give another one.</p>
-  <p th:if="${isAnyOfThemEmpty}">Please fill up every textboxes.</p>
+  <p th:if="${isAnyOfThemEmpty}" style="color: red">Please fill up every textboxes.</p>
   <p th:if="${isSuccessful}" style="color: green">Successfully registered. Go back to main page to login.</p>
 </form>
 

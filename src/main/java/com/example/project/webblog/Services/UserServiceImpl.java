@@ -44,6 +44,10 @@ public class UserServiceImpl implements UserService {
 //
 //        return "registration";
 
+        if (firstName == null || lastName == null || userName == null || password == null) {
+            return "registration";
+        }
+
         if (userRepository.existsUserByUserName(userName)) {
             model.addAttribute("isAlreadyExists", true);
 
