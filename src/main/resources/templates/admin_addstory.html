@@ -20,7 +20,7 @@
 
                 <div style='position: relative'>
                     <h5 class="text-muted" style='margin-right:10px; horiz-align: center'>
-                        Hello, user
+                        Hello, <b th:text="${firstName}">firstName</b>
                     </h5>
                 </div>
 
@@ -41,12 +41,7 @@
             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="20"></textarea>
         </div>
 
-            <button formaction="/admin" formmethod="post" class="btn btn-outline-primary">Add story</button>
-
-        <div class="mb-3">
-            <label for="exampleFormControlInput2" class="form-label">Username</label>
-            <input name="userName" class="form-control" id="exampleFormControlInput2" placeholder="User Name">
-        </div>
+            <button th:formaction="'/admin?userName=' + ${userName}" formmethod="post" class="btn btn-outline-primary">Add story</button>
     </form>
 </div>
 </body>

@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findUserByUserName(userName);
 
+        model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("userName", user.getUserName());
 
         if (user.isAdmin()) {
