@@ -34,16 +34,6 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(required = false) String userName, @RequestParam(required = false) String password, Model model) {
-        if (userName == null || password == null) {
-            model.addAttribute("isNull", true);
-            model.addAttribute("result", "Please fill up username & password.");
-            return "index";
-        }
-        if (!userService.getUserRepository().existsUserByUserNameAndPassword(userName, password)) {
-            model.addAttribute("isExists", false);
-            model.addAttribute("result", "Username or password is incorrect.");
-            return "index";
-        }
-        return "index_user";
+        return userService.login(userName, password,model);
     }
 }

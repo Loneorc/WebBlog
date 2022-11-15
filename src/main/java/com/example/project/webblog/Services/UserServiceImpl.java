@@ -5,6 +5,7 @@ import com.example.project.webblog.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,4 +47,31 @@ public class UserServiceImpl implements UserService {
 
         return "registration";
     }
+
+    @Override
+    public String login(String userName, String password, Model model) {
+
+        if (userName == null || password == null) {
+            model.addAttribute("isNull", true);
+            model.addAttribute("result", "Please fill up username & password.");
+            return "index";
+        }
+        if (userName.isEmpty() || password.isEmpty()) {
+            model.addAttribute("isEmpty", true);
+            model.addAttribute("result", "Please fill up username & password.");
+            return "index";
+        }
+        if (!userRepository.existsUserByUserNameAndPassword(userName, password)) {
+            model.addAttribute("isNotExists", true);
+            model.addAttribute("result", "Username or password is incorrect.");
+            return "index";
+        }
+        model.addAttribute("firstName", userRepository.findUserByUserName(userName).getFirstName());
+        return "index_user";
+    }
 }
+
+
+
+
+

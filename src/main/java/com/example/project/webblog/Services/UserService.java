@@ -8,5 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Service
 public interface UserService {
     UserRepository getUserRepository();
+
     String registration(String firstName, String lastName, String userName, String password, Model model);
+    String login(String userName, String password, Model model);
+
 }
+
+

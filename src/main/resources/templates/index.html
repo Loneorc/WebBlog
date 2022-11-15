@@ -19,8 +19,8 @@
             </ul>
             <form class="d-flex" role="search">
 
-                <input class="form-control me-2" placeholder="Username">
-                <input class="form-control me-2" placeholder="Password">
+                <input name="userName" class="form-control me-2" placeholder="Username">
+                <input name="password" class="form-control me-2" placeholder="Password">
                 <button formaction="/login" formmethod="post" class="btn btn-outline-success"  style='margin-right:10px'>Login</button>
                 <button formaction="/registration" formmethod="post" class="btn btn-outline-success">Registration</button>
             </form>
@@ -28,11 +28,9 @@
     </div>
 </nav>
 <p style="text-align: right; color: red"
-th:if="${isNull}" th:text="${result}"
->Please try again. </p>
+th:if="${isNull} or ${isEmpty}" th:text="${result}">Please try again. </p>
 <p style="text-align: right; color: red"
-   th:if="${isExists}" th:text="${result}"
->Please try again. </p>
+   th:if="${isNotExists}" th:text="${result}">Please try again. </p>
 
 <div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"  th:each="story: ${story}">
     <a class="list-group-item list-group-item-action active" aria-current="true">
