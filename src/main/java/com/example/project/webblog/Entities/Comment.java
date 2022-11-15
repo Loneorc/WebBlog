@@ -21,7 +21,7 @@ public class Comment {
     private Long id;
 
     private String content;
-    private LocalDateTime creationDate;
+    private String creationDate;
 
 
     public Comment(String content) {
@@ -44,11 +44,11 @@ public class Comment {
         this.content = content;
     }
 
-    public LocalDateTime getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 

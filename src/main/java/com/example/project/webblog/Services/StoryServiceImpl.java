@@ -27,9 +27,9 @@ public class StoryServiceImpl implements StoryService{
     }
 
     @Override
-    public String printStory(Model model) {
-        model.addAttribute("story", storyRepository.findAll());
-        return "index";
+    public void printStory(Model model) {
+        model.addAttribute("story", storyRepository.findByOrderByCreationDateDesc());
+
     }
 
     @Override

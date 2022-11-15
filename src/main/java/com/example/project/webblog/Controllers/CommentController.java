@@ -29,7 +29,7 @@ public class CommentController {
         this.storyService = storyService;
     }
 
-    @RequestMapping("/admin/addcomment")
+    @RequestMapping("/addcomment")
     public String addComment(@RequestParam(required = false) String userName, @RequestParam(required = false) String commentContent, Model model
     , @RequestParam(required = false) long storyId) {
 
@@ -37,23 +37,32 @@ public class CommentController {
 
         storyService.printStory(model);
 
-        model.addAttribute("comments", commentService.getCommentRepository().findAll());
+        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
         model.addAttribute("users", userService.getUserRepository().findAll());
+        model.addAttribute("loggedinuser",userService.getUserRepository().findUserByUserName(userName));
 
-        return "index_admin";
+        if(userService.getUserRepository().findUserByUserName(userName).isAdmin()){
+            return "index_admin";
+        }
+
+        return "index_user";
     }
 
-    @RequestMapping("/admin/deletecomment")
+    @RequestMapping("/deletecomment")
     public String deleteComment(@RequestParam(required = false) String userName, Model model
             , @RequestParam(required = false) long commentId){
 
         commentService.deleteComment(userName, model, commentId, userService.getUserRepository());
         storyService.printStory(model);
 
-        model.addAttribute("comments", commentService.getCommentRepository().findAll());
+        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
         model.addAttribute("users", userService.getUserRepository().findAll());
+        model.addAttribute("loggedinuser",userService.getUserRepository().findUserByUserName(userName));
 
+        if(userService.getUserRepository().findUserByUserName(userName).isAdmin()){
+            return "index_admin";
+        }
 
-        return "index_admin";
+        return "index_user";
     }
 }

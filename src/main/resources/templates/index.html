@@ -32,19 +32,35 @@ th:if="${isNull} or ${isEmpty}" th:text="${result}">Please try again. </p>
 <p style="text-align: right; color: red"
    th:if="${isNotExists}" th:text="${result}">Please try again. </p>
 
-<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"  th:each="story, storyStat: ${story}">
-    <a class="list-group-item list-group-item-action " th:classappend ="${storyStat.even}? '' :'active'" aria-current="true">
+<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"
+     th:each="story, storyStat: ${story}">
+    <a class="list-group-item list-group-item-action " th:classappend="${storyStat.even}? '' :'active'"
+       aria-current="true">
         <div class="d-flex w-100 justify-content-between">
-            <h5 th:text="${story.title}"> </h5>
-            <small th:text="${story.creationDate}"></small>
+            <h5 th:text="${story.title}"></h5>
+            <small >
+                <ul>
+                    <li th:text="${story.creationDate}"></li>
+                    <li th:each="user, commentStat: ${users}" th:if="${user.id} == ${story.user.id}" th:text="${user.userName}"></li>
+                </ul>
+            </small>
+
         </div>
-        <p class="mb-1" th:text="${story.content}"></p>
+        <p class="mb-1" th:text="${story.content}" style="word-break: break-all"></p>
         <small>Comments
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">username</li>
-                <li class="list-group-item">creation date</li>
-                <li class="list-group-item">comment</li>
-            </ul>
+            <form>
+                <ul class="list-group list-group-horizontal" th:each="comment, commentStat: ${comments}">
+                    <li class="list-group-item" th:each="user, commentStat: ${users}"
+                        th:if="${user.id} == ${comment.user.id} and ${story.id} == ${comment.story.id}"
+                        th:text="${user.userName}"></li>
+                    <li class="list-group-item" th:if="${story.id} == ${comment.story.id}"
+                        th:text="${comment.creationDate}">creation date
+                    </li>
+                    <li class="list-group-item" th:if="${story.id} == ${comment.story.id}"
+                        th:text="${comment.content}"></li>
+
+                </ul>
+            </form>
         </small>
     </a>
 

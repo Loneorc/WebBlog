@@ -66,7 +66,7 @@
                         th:each="user, commentStat: ${users}"
                         th:if="${user.id} == ${comment.user.id} and ${story.id} == ${comment.story.id}"
                         style="font-size: 13px; margin-left: 10px"
-                        th:formaction="'/admin/deletecomment?userName=' + ${userName} + '&commentId=' + ${comment.id}"
+                        th:formaction="'/deletecomment?userName=' + ${userName} + '&commentId=' + ${comment.id}"
                         formmethod="post">Delete
                 </button>
             </ul>
@@ -77,7 +77,7 @@
 
                     <button class="btn " th:classappend="${storyStat.even}? 'btn-outline-dark' :'btn-outline-warning' "
                             style="font-size: 13px;"
-                            th:formaction="'/admin/addcomment?userName=' + ${userName} + '&storyId=' + ${story.id}"
+                            th:formaction="'/addcomment?userName=' + ${userName} + '&storyId=' + ${story.id}"
                             formmethod="post">
                         Add comment
                     </button>

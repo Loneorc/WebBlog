@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 public interface StoryService {
     StoryRepository getStoryRepository();
 
-    String printStory(Model model);
+    void printStory(Model model);
 
     void addStory(String userName, String title, String content, User user, UserRepository userRepository, Model model);
     void displayAdminForm(String userName, Model model, User user);

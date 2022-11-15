@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class CommentServiceImpl implements CommentService{
@@ -40,7 +41,7 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = new Comment();
         comment.setContent(commentContent);
-        comment.setCreationDate(LocalDateTime.now());
+        comment.setCreationDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         comment.setUser(user);
 
         comment.setStory(story);
