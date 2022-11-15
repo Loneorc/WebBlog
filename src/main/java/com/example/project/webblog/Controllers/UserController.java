@@ -1,7 +1,9 @@
 package com.example.project.webblog.Controllers;
 
+import com.example.project.webblog.Entities.Comment;
 import com.example.project.webblog.Entities.Story;
 import com.example.project.webblog.Entities.User;
+import com.example.project.webblog.Services.CommentService;
 import com.example.project.webblog.Services.StoryService;
 import com.example.project.webblog.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +22,20 @@ import java.time.format.DateTimeFormatter;
 public class UserController {
     private UserService userService;
     private StoryService storyService;
+    private CommentService commentService;
 
     @Autowired
-    public UserController(UserService userService, StoryService storyService) {
+    public UserController(UserService userService, StoryService storyService, CommentService commentService) {
         this.userService = userService;
         this.storyService = storyService;
+        this.commentService = commentService;
     }
 
     @RequestMapping("/")
     public String displayMain(Model model) {
         storyService.printStory(model);
+        model.addAttribute("comments", commentService.getCommentRepository().findAll());
+        model.addAttribute("users", userService.getUserRepository().findAll());
         return "index";
     }
 
@@ -41,6 +47,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(required = false) String userName, @RequestParam(required = false) String password, Model model) {
         storyService.printStory(model);
+        model.addAttribute("comments", commentService.getCommentRepository().findAll());
+        model.addAttribute("users", userService.getUserRepository().findAll());
         return userService.login(userName, password,model);
     }
 }

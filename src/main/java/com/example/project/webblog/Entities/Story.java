@@ -3,12 +3,17 @@ package com.example.project.webblog.Entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Story {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     User user;
+
+    @OneToMany(mappedBy = "story")
+    List<Comment> comments;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,5 +68,13 @@ public class Story {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

@@ -2,9 +2,18 @@ package com.example.project.webblog.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Comment {
+
+    @ManyToOne
+    @JoinColumn(name = "story_id", nullable = false)
+    Story story;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,13 +22,10 @@ public class Comment {
 
     private String content;
     private LocalDateTime creationDate;
-    long storyId;
-    long userId;
 
-    public Comment(String content, long storyId, long userId) {
+
+    public Comment(String content) {
         this.content = content;
-        this.storyId = storyId;
-        this.userId = userId;
     }
 
     public Comment() {
@@ -42,19 +48,23 @@ public class Comment {
         return creationDate;
     }
 
-    public long getStoryId() {
-        return storyId;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public void setStoryId(long storyId) {
-        this.storyId = storyId;
+    public Story getStory() {
+        return story;
     }
 
-    public long getUserId() {
-        return userId;
+    public void setStory(Story story) {
+        this.story = story;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,65 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Title</title>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" th:href="'/admin/addstory?userName=' + ${userName}">Add story</a>
-      </li>
-    </ul>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="'/admin/addstory?userName=' + ${userName}">Add
+                    story</a>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-      </ul>
-      <form class="d-flex" style='vertical-align: center;'>
+            </ul>
+            <form class="d-flex" style='vertical-align: center;'>
 
-        <div style='position: relative'>
-          <h5 class="text-muted" style='margin-right:10px; horiz-align: center'>
-            Hello, <b th:text="${firstName}">firstName</b>
-          </h5>
+                <div style='position: relative'>
+                    <h5 class="text-muted" style='margin-right:10px; horiz-align: center'>
+                        Hello, <b th:text="${firstName}">firstName</b>
+                    </h5>
+                </div>
+
+                <button formaction="/" class="btn btn-outline-success">Logout</button>
+
+            </form>
         </div>
-
-        <button formaction="/" class="btn btn-outline-success">Logout</button>
-
-      </form>
     </div>
-  </div>
 </nav>
 
 
-<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"  th:each="story, storyStat: ${story}">
-  <a class="list-group-item list-group-item-action " th:classappend ="${storyStat.even}? '' :'active'" aria-current="true">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 th:text="${story.title}"> </h5>
-      <small th:text="${story.creationDate}"></small>
-    </div>
-    <p class="mb-1" th:text="${story.content}" style="word-break: break-all"></p>
-    <small>Comments
-      <ul class="list-group list-group-horizontal">
-        <li class="list-group-item">username</li>
-        <li class="list-group-item">creation date</li>
-        <li class="list-group-item">comment</li>
-        <button class="btn" th:classappend ="${storyStat.even}? 'btn-outline-dark' :'btn-outline-warning' " style="font-size: 13px; margin-left: 10px">Delete</button>
-      </ul>
-      <div class="input-group input-group-sm mb-3" style=" margin-top:10px;">
-        <button class="btn "  th:classappend ="${storyStat.even}? 'btn-outline-dark' :'btn-outline-warning' " style="font-size: 13px;">
-          Add comment
-        </button>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Type your comment here">
-      </div>
-    </small>
-  </a>
+<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"
+     th:each="story, storyStat: ${story}">
+    <a class="list-group-item list-group-item-action " th:classappend="${storyStat.even}? '' :'active'"
+       aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 th:text="${story.title}"></h5>
+            <small th:text="${story.creationDate}"></small>
+        </div>
+        <p class="mb-1" th:text="${story.content}" style="word-break: break-all"></p>
+        <small>Comments
+            <form>
+            <ul class="list-group list-group-horizontal" th:each="comment, commentStat: ${comments}">
+                <li class="list-group-item" th:each="user, commentStat: ${users}"
+                    th:if="${user.id} == ${comment.user.id} and ${story.id} == ${comment.story.id}"
+                    th:text="${user.userName}"></li>
+                <li class="list-group-item" th:if="${story.id} == ${comment.story.id}"
+                    th:text="${comment.creationDate}">creation date
+                </li>
+                <li class="list-group-item" th:if="${story.id} == ${comment.story.id}"
+                    th:text="${comment.content}"></li>
+
+                <button class="btn" th:classappend="${storyStat.even}? 'btn-outline-dark' :'btn-outline-warning' "
+                        th:each="user, commentStat: ${users}"
+                        th:if="${user.id} == ${comment.user.id} and ${story.id} == ${comment.story.id}"
+                        style="font-size: 13px; margin-left: 10px"
+                        th:formaction="'/admin/deletecomment?userName=' + ${userName} + '&commentId=' + ${comment.id}"
+                        formmethod="post">Delete
+                </button>
+            </ul>
+            </form>
+            <form>
+                <div class="input-group input-group-sm mb-3" style=" margin-top:10px;">
+
+
+                    <button class="btn " th:classappend="${storyStat.even}? 'btn-outline-dark' :'btn-outline-warning' "
+                            style="font-size: 13px;"
+                            th:formaction="'/admin/addcomment?userName=' + ${userName} + '&storyId=' + ${story.id}"
+                            formmethod="post">
+                        Add comment
+                    </button>
+
+                    <input name="commentContent" type="text" class="form-control" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm" placeholder="Type your comment here">
+                </div>
+            </form>
+
+
+        </small>
+    </a>
 
 
 </div>

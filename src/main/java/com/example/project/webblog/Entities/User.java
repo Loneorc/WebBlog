@@ -8,7 +8,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Story> stories;
 
-
+    @OneToMany(mappedBy = "user")
+    List<Comment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -78,5 +79,11 @@ public class User {
         return id;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
 
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }
