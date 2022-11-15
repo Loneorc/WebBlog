@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Story {
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,16 +19,14 @@ public class Story {
     @Column(columnDefinition = "TEXT")
     private String content;
     private String creationDate;
-    private long userId;
 
     public Story() {
     }
 
-    public Story(String title, String content, String creationDate, long userId) {
+    public Story(String title, String content, String creationDate) {
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
-        this.userId = userId;
     }
 
     public Long getId() {
@@ -56,11 +57,11 @@ public class Story {
         this.creationDate = creationDate;
     }
 
-    public long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -13,6 +13,14 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/admin/addstory">Add story</a>
+      </li>
+      <li class="nav-item">
+        <input name="nickName" class="form-control" id="exampleFormControlInput2" placeholder="User Name">
+      </li>
+    </ul>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -21,11 +29,11 @@
 
         <div style='position: relative'>
           <h5 class="text-muted" style='margin-right:10px; horiz-align: center'>
-            Hello, user
+            Hello, <b th:text="${userName}">firstName</b>
           </h5>
         </div>
 
-        <button class="btn btn-outline-success">Logout</button>
+        <button formaction="/" class="btn btn-outline-success">Logout</button>
 
       </form>
     </div>
@@ -39,7 +47,7 @@
       <h5 th:text="${story.title}"> </h5>
       <small th:text="${story.creationDate}"></small>
     </div>
-    <p class="mb-1" th:text="${story.content}"></p>
+    <p class="mb-1" th:text="${story.content}" style="word-break: break-all"></p>
     <small>Comments
       <ul class="list-group list-group-horizontal">
         <li class="list-group-item">username</li>

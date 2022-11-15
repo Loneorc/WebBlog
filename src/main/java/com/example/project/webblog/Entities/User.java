@@ -1,9 +1,15 @@
 package com.example.project.webblog.Entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
+    @OneToMany(mappedBy = "user")
+    List<Story> stories;
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -22,6 +28,10 @@ public class User {
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+    }
+
+    public List<Story> getStories() {
+        return stories;
     }
 
     public String getFirstName() {

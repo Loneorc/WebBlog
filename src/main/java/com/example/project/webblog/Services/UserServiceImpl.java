@@ -66,7 +66,15 @@ public class UserServiceImpl implements UserService {
             model.addAttribute("result", "Username or password is incorrect.");
             return "index";
         }
-        model.addAttribute("firstName", userRepository.findUserByUserName(userName).getFirstName());
+
+        User user = userRepository.findUserByUserName(userName);
+
+        model.addAttribute("userName", user.getUserName());
+
+        if (user.isAdmin()) {
+            return "index_admin";
+        }
+
         return "index_user";
     }
 }

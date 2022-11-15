@@ -26,7 +26,7 @@ public class StoryController {
     public String printAll(Model model) {
 
 
-        Story story = new Story("Some Title","Lot lot lot lot lot of text", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), 1);
+        Story story = new Story("Some Title","Lot lot lot lot lot of text", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         Story story2 = new Story("java.time.LocalDateTime Class in Java","java.time.LocalDateTime class, " +
                 "introduced in Java 8, represents a local date-time object without timezone information." +
                 "java.time.LocalDateTime class, introduced in Java 8, represents a local date-time object without timezone information." +
@@ -34,7 +34,7 @@ public class StoryController {
                 "java.time.LocalDateTime class, introduced in Java 8, represents a local date-time object without timezone information." +
                 "java.time.LocalDateTime class, introduced in Java 8, represents a local date-time object without timezone information." +
                 "java.time.LocalDateTime class, introduced in Java 8, represents a local date-time object without timezone information."
-                , LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), 2);
+                , LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         storyService.getStoryRepository().save(story);
         storyService.getStoryRepository().save(story2);

@@ -22,6 +22,10 @@ public class Comment {
         this.userId = userId;
     }
 
+    public Comment() {
+
+    }
+
     public Long getId() {
         return id;
     }
