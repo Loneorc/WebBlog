@@ -34,6 +34,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(required = false) String userName, @RequestParam(required = false) String password, Model model) {
+        storyService.printStory(model);
         return userService.login(userName, password,model);
     }
 }

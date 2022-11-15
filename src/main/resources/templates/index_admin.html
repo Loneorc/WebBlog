@@ -32,53 +32,31 @@
   </div>
 </nav>
 
-<div class="list-group center" style="width: 70%; margin: auto;">
-  <a class="list-group-item list-group-item-action active" aria-current="true">
+
+<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"  th:each="story, storyStat: ${story}">
+  <a class="list-group-item list-group-item-action " th:classappend ="${storyStat.even}? '' :'active'" aria-current="true">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">Title</h5>
-      <small>3 days ago</small>
+      <h5 th:text="${story.title}"> </h5>
+      <small th:text="${story.creationDate}"></small>
     </div>
-    <p class="mb-1">Description</p>
+    <p class="mb-1" th:text="${story.content}"></p>
     <small>Comments
       <ul class="list-group list-group-horizontal">
         <li class="list-group-item">username</li>
         <li class="list-group-item">creation date</li>
         <li class="list-group-item">comment</li>
-        <button class="btn btn-outline-warning" style="font-size: 13px; margin-left: 10px">Delete</button>
+        <button class="btn" th:classappend ="${storyStat.even}? 'btn-outline-dark' :'btn-outline-warning' " style="font-size: 13px; margin-left: 10px">Delete</button>
       </ul>
-
       <div class="input-group input-group-sm mb-3" style=" margin-top:10px;">
-        <button class="btn btn-outline-warning" style="font-size: 13px;">
-          Add comment
-        </button>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Type your comment here">
-      </div>
-    </small>
-
-
-  </a>
-  <a class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small class="text-muted">Comments
-      <ul class="list-group list-group-horizontal">
-        <li class="list-group-item">username</li>
-        <li class="list-group-item">creation date</li>
-        <li class="list-group-item">comment</li>
-        <button class="btn btn-outline-dark" style="font-size: 13px; margin-left: 10px">Delete</button>
-      </ul>
-
-      <div class="input-group input-group-sm mb-3" style=" margin-top:10px;">
-        <button class="btn btn-outline-dark" style="font-size: 13px;">
+        <button class="btn "  th:classappend ="${storyStat.even}? 'btn-outline-dark' :'btn-outline-warning' " style="font-size: 13px;">
           Add comment
         </button>
         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Type your comment here">
       </div>
     </small>
   </a>
+
+
 </div>
 </body>
 </html>

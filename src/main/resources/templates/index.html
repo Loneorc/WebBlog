@@ -32,8 +32,8 @@ th:if="${isNull} or ${isEmpty}" th:text="${result}">Please try again. </p>
 <p style="text-align: right; color: red"
    th:if="${isNotExists}" th:text="${result}">Please try again. </p>
 
-<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"  th:each="story: ${story}">
-    <a class="list-group-item list-group-item-action active" aria-current="true">
+<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"  th:each="story, storyStat: ${story}">
+    <a class="list-group-item list-group-item-action " th:classappend ="${storyStat.even}? '' :'active'" aria-current="true">
         <div class="d-flex w-100 justify-content-between">
             <h5 th:text="${story.title}"> </h5>
             <small th:text="${story.creationDate}"></small>
@@ -47,6 +47,8 @@ th:if="${isNull} or ${isEmpty}" th:text="${result}">Please try again. </p>
             </ul>
         </small>
     </a>
+
+
 </div>
 </body>
 </html>
