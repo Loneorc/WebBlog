@@ -32,16 +32,22 @@ th:if="${isNull} or ${isEmpty}" th:text="${result}">Please try again. </p>
 <p style="text-align: right; color: red"
    th:if="${isNotExists}" th:text="${result}">Please try again. </p>
 
-<div class="list-group center" style="width: 70%; margin: auto; padding: 10px;" aria-colspan="10"
+<div class="list-group center shadow-lg p-3 mb-5 bg-body rounded" style="width: 70%; margin: auto; padding: 5px;" aria-colspan="10"
      th:each="story, storyStat: ${story}">
     <a class="list-group-item list-group-item-action " th:classappend="${storyStat.even}? '' :'active'"
        aria-current="true">
         <div class="d-flex w-100 justify-content-between">
             <h5 th:text="${story.title}"></h5>
             <small >
-                <ul>
-                    <li th:text="${story.creationDate}"></li>
-                    <li th:each="user, commentStat: ${users}" th:if="${user.id} == ${story.user.id}" th:text="${user.userName}"></li>
+                <ul style="text-align: right; list-style-type:none;">
+                    Created:
+                    <li style="padding: 1px"; th:text="${story.creationDate}">
+
+                    </li>
+                    By
+                    <li style="padding: 1px"; th:each="user, commentStat: ${users}" th:if="${user.id} == ${story.user.id}" th:text="${user.userName}">
+
+                    </li>
                 </ul>
             </small>
 
