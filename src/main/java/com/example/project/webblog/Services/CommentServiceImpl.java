@@ -66,5 +66,10 @@ public class CommentServiceImpl implements CommentService{
         commentRepository.deleteById(commentId);
     }
 
+    @Override
+    public void printComments(Model model) {
+        model.addAttribute("comments", commentRepository.findByOrderByCreationDateAsc());
+    }
+
 
 }

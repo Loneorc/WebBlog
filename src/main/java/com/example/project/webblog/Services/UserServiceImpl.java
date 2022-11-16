@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
@@ -71,12 +73,48 @@ public class UserServiceImpl implements UserService {
 
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("userName", user.getUserName());
+        model.addAttribute("loggedinuser", userRepository.findUserByUserName(userName));
 
         if (user.isAdmin()) {
             return "index_admin";
         }
 
         return "index_user";
+    }
+
+    @Override
+    public void printUsers(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+    }
+
+    @Override
+    public void setAdmin(String userName, Model model, Optional<Long> userId) {
+        User user  = userRepository.findUserByUserName(userName);
+        model.addAttribute("firstName", user.getFirstName());
+        model.addAttribute("userName", user.getUserName());
+
+        if(userId.isPresent()){
+            User userToSet = userRepository.findById(userId);
+            userToSet.setAdmin(true);
+            userRepository.save(userToSet);
+        }
+
+        printUsers(model);
+    }
+
+    @Override
+    public boolean loggedInUserIsAdmin(String userName, Model model) {
+        User user = userRepository.findUserByUserName(userName);
+
+        model.addAttribute("firstName", user.getFirstName());
+        model.addAttribute("userName", user.getUserName());
+        model.addAttribute("loggedinuser", user);
+
+        if (user.isAdmin()) {
+            return true;
+        }
+
+        return false;
     }
 }
 

@@ -16,4 +16,6 @@ public interface CommentService {
                     UserRepository userRepository, StoryRepository storyRepository);
 
     void deleteComment(String userName, Model model, long commentId, UserRepository userRepository);
+
+    void printComments(Model model);
 }

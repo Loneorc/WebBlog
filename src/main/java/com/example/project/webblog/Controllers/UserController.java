@@ -1,24 +1,16 @@
 package com.example.project.webblog.Controllers;
 
-import com.example.project.webblog.Entities.Comment;
-import com.example.project.webblog.Entities.Story;
 import com.example.project.webblog.Entities.User;
 import com.example.project.webblog.Services.CommentService;
 import com.example.project.webblog.Services.StoryService;
 import com.example.project.webblog.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Controller
@@ -36,9 +28,10 @@ public class UserController {
 
     @RequestMapping("/")
     public String displayMain(Model model) {
-        storyService.printStory(model);
-        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
-        model.addAttribute("users", userService.getUserRepository().findAll());
+        storyService.printStories(model);
+        commentService.printComments(model);
+        userService.printUsers(model);
+
         return "index";
     }
 
@@ -49,43 +42,28 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     public String login(@RequestParam(required = false) String userName, @RequestParam(required = false) String password, Model model) {
-        storyService.printStory(model);
-        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
-        model.addAttribute("users", userService.getUserRepository().findAll());
-        model.addAttribute("loggedinuser", userService.getUserRepository().findUserByUserName(userName));
+        storyService.printStories(model);
+        commentService.printComments(model);
+        userService.printUsers(model);
+
         return userService.login(userName, password, model);
     }
 
     @RequestMapping("/home")
     public String displayHome(@RequestParam String userName, Model model) {
-        storyService.printStory(model);
-        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
-        model.addAttribute("users", userService.getUserRepository().findAll());
+        storyService.printStories(model);
+        commentService.printComments(model);
+        userService.printUsers(model);
 
-        User user = userService.getUserRepository().findUserByUserName(userName);
-
-        model.addAttribute("firstName", user.getFirstName());
-        model.addAttribute("userName", user.getUserName());
-        model.addAttribute("loggedinuser", user);
-
-        if (user.isAdmin()) {
+        if (userService.loggedInUserIsAdmin(userName, model)) {
             return "index_admin";
         }
 
         return "index_user";
     }
     @RequestMapping("/setadmin")
-    public String setAdmin(@RequestParam() String userName, Model model,@RequestParam() Optional<Long> userId){
-        User user  = userService.getUserRepository().findUserByUserName(userName);
-        model.addAttribute("firstName", user.getFirstName());
-        model.addAttribute("userName", user.getUserName());
-
-        if(userId.isPresent()){
-            User userToSet = userService.getUserRepository().findById(userId);
-            userToSet.setAdmin(true);
-            userService.getUserRepository().save(userToSet);
-        }
-        model.addAttribute("users", userService.getUserRepository().findAll());
+    public String displaySetAdmin(@RequestParam() String userName, Model model, @RequestParam() Optional<Long> userId){
+        userService.setAdmin(userName, model, userId);
 
         return "admin_setadmin";
     }

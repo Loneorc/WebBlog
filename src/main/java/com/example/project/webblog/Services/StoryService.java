@@ -12,10 +12,10 @@ import java.util.Optional;
 public interface StoryService {
     StoryRepository getStoryRepository();
 
-    void printStory(Model model);
+    void printStories(Model model);
 
-    void addStory(String userName, String title, String content, User user, UserRepository userRepository, Model model);
-    void displayAdminForm(String userName, Model model, User user, CommentService commentService, UserService userService);
+    boolean addStory(String userName, String title, String content, User user, UserRepository userRepository, Model model);
+    void displayAdminForm(String userName, Model model, User user);
 
-    void editStory(String userName, String title, String content, User user, UserRepository userRepository, Optional<Long> storyId, Model model);
+    boolean editStory(String userName, String title, String content, User user, UserRepository userRepository, Optional<Long> storyId, Model model);
 }

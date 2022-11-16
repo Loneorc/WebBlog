@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <title>Title</title>
+    <title>Home page</title>
 </head>
 <body>
 
@@ -20,8 +20,8 @@
             <form class="d-flex" role="search">
 
                 <input name="userName" class="form-control me-2" placeholder="Username">
-                <input name="password" class="form-control me-2" placeholder="Password">
-                <button formaction="/login" formmethod="post" class="btn btn-outline-success"  style='margin-right:10px'>Login</button>
+                <input name="password" type="password" class="form-control me-2" placeholder="Password">
+                <button formaction="/login" formmethod="post" class="btn btn-outline-success" data-bind="enable: my" style='margin-right:10px'>Login</button>
                 <button formaction="/registration" formmethod="post" class="btn btn-outline-success">Registration</button>
             </form>
         </div>

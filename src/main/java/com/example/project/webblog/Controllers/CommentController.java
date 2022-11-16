@@ -1,8 +1,5 @@
 package com.example.project.webblog.Controllers;
 
-import com.example.project.webblog.Entities.Comment;
-import com.example.project.webblog.Entities.Story;
-import com.example.project.webblog.Entities.User;
 import com.example.project.webblog.Services.CommentService;
 import com.example.project.webblog.Services.StoryService;
 import com.example.project.webblog.Services.UserService;
@@ -11,9 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 public class CommentController {
@@ -35,10 +29,11 @@ public class CommentController {
 
         commentService.addComment(userName, commentContent, model, storyId, userService.getUserRepository(), storyService.getStoryRepository());
 
-        storyService.printStory(model);
+        storyService.printStories(model);
 
-        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
-        model.addAttribute("users", userService.getUserRepository().findAll());
+        commentService.printComments(model);
+        userService.printUsers(model);
+
         model.addAttribute("loggedinuser",userService.getUserRepository().findUserByUserName(userName));
 
         if(userService.getUserRepository().findUserByUserName(userName).isAdmin()){
@@ -53,10 +48,10 @@ public class CommentController {
             , @RequestParam(required = false) long commentId){
 
         commentService.deleteComment(userName, model, commentId, userService.getUserRepository());
-        storyService.printStory(model);
+        storyService.printStories(model);
 
-        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
-        model.addAttribute("users", userService.getUserRepository().findAll());
+        commentService.printComments(model);
+        userService.printUsers(model);
         model.addAttribute("loggedinuser",userService.getUserRepository().findUserByUserName(userName));
 
         if(userService.getUserRepository().findUserByUserName(userName).isAdmin()){

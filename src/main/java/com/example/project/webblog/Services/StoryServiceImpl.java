@@ -28,13 +28,24 @@ public class StoryServiceImpl implements StoryService{
     }
 
     @Override
-    public void printStory(Model model) {
+    public void printStories(Model model) {
         model.addAttribute("story", storyRepository.findByOrderByCreationDateDesc());
-
     }
 
     @Override
-    public void addStory(String userName, String title, String content, User user, UserRepository userRepository, Model model) {
+    public boolean addStory(String userName, String title, String content, User user, UserRepository userRepository, Model model) {
+        if (title.isEmpty() || content.isEmpty()) {
+            model.addAttribute("isEmpty", true);
+
+            return false;
+        }
+
+        if (title == null || content == null) {
+            model.addAttribute("isNull", true);
+
+            return false;
+        }
+
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("userName", userName);
 
@@ -49,18 +60,31 @@ public class StoryServiceImpl implements StoryService{
         storyRepository.save(story);
         userRepository.save(user);
 
-        printStory(model);
+        printStories(model);
+
+        return true;
     }
 
     @Override
-    public void displayAdminForm(String userName, Model model, User user, CommentService commentService, UserService userService) {
-        printStory(model);
+    public void displayAdminForm(String userName, Model model, User user) {
+        printStories(model);
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("userName", userName);
-
     }
     @Override
-    public void editStory(String userName, String title, String content, User user, UserRepository userRepository, Optional<Long> storyId, Model model) {
+    public boolean editStory(String userName, String title, String content, User user, UserRepository userRepository, Optional<Long> storyId, Model model) {
+        if (title.isEmpty() || content.isEmpty()) {
+            model.addAttribute("isEmpty", true);
+
+            return false;
+        }
+
+        if (title == null || content == null) {
+            model.addAttribute("isNull", true);
+
+            return false;
+        }
+
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("userName", userName);
 
@@ -75,7 +99,9 @@ public class StoryServiceImpl implements StoryService{
         storyRepository.save(story);
         userRepository.save(user);
 
-        printStory(model);
+        printStories(model);
+
+        return true;
     }
 
 }
