@@ -9,5 +9,5 @@ import java.util.List;
 public interface CommentRepository extends CrudRepository<Comment, Long> {
     List<Comment> findByOrderByCreationDateAsc();
 
-
+    void deleteAllByStoryId(long storyId);
 }

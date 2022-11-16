@@ -46,7 +46,13 @@
     <a class="list-group-item list-group-item-action " th:classappend="${storyStat.even}? '' :'active'"
        aria-current="true">
         <div class="d-flex w-100 justify-content-between">
-            <h5 th:text="${story.title}"></h5>
+            <form><h5 th:text="${story.title}"></h5>
+            <button class="btn" th:classappend="${storyStat.even}? 'btn-outline-dark' :'btn-outline-warning' "
+                    style="font-size: 13px; margin-left: 10px"
+                    th:formaction="'/deletestory?userName=' + ${userName} + '&storyId=' + ${story.id}"
+                    formmethod="post">Delete
+            </button>
+            </form>
             <small >
                 <ul style="text-align: right; list-style-type:none;">
                     Created:
