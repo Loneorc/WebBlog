@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -72,5 +73,20 @@ public class UserController {
         }
 
         return "index_user";
+    }
+    @RequestMapping("/setadmin")
+    public String setAdmin(@RequestParam() String userName, Model model,@RequestParam() Optional<Long> userId){
+        User user  = userService.getUserRepository().findUserByUserName(userName);
+        model.addAttribute("firstName", user.getFirstName());
+        model.addAttribute("userName", user.getUserName());
+
+        if(userId.isPresent()){
+            User userToSet = userService.getUserRepository().findById(userId);
+            userToSet.setAdmin(true);
+            userService.getUserRepository().save(userToSet);
+        }
+        model.addAttribute("users", userService.getUserRepository().findAll());
+
+        return "admin_setadmin";
     }
 }

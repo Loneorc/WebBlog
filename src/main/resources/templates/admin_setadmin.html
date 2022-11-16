@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <title>Title</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="'/home?userName=' + ${userName}">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      </ul>
+      <form class="d-flex" style='vertical-align: center;'>
+
+        <div style='position: relative'>
+          <h5 class="text-muted" style='margin-right:10px; horiz-align: center'>
+            Hello, <b th:text="${firstName}">firstName</b>
+          </h5>
+        </div>
+
+        <button formaction="/" class="btn btn-outline-success">Logout</button>
+
+      </form>
+    </div>
+  </div>
+</nav>
+<form>
+<ul class="list-group" style="width: 20%; margin: auto" th:each="user : ${users}">
+  <li class="list-group-item " aria-current="true" th:if="${!user.isAdmin}" th:text="${user.userName}">User name </li>
+  <button th:formaction="'/setadmin?userName=' + ${userName} + '&userId=' + ${user.id}" formmethod="post" class="btn btn-primary" th:if="${!user.isAdmin}">Set admin</button>
+</ul>
+</form>
+</body>
+</html>
