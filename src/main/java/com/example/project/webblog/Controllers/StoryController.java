@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Controller
 @Transactional
 public class StoryController {
@@ -27,16 +29,26 @@ public class StoryController {
     }
 
     @RequestMapping("/admin")
-    public String displayAdmin(@RequestParam(required = false) String userName, @RequestParam(required = false) String title, @RequestParam(required = false) String content, Model model) {
-        storyService.addStory(userName, title, content, userService.getUserRepository().findUserByUserName(userName), userService.getUserRepository(), model);
+    public String displayAdmin(@RequestParam(required = false) String userName, @RequestParam(required = false) String title, @RequestParam(required = false) String content,@RequestParam() Optional<Long> storyId, Model model) {
+        if (storyId.isPresent()) {
+            storyService.editStory(userName, title, content, userService.getUserRepository().findUserByUserName(userName), userService.getUserRepository(),storyId, model);
+        }else {
+            storyService.addStory(userName, title, content, userService.getUserRepository().findUserByUserName(userName), userService.getUserRepository(), model);
+        }
+
         model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
+        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
+        model.addAttribute("users", userService.getUserRepository().findAll());
+        model.addAttribute("firstName", userService.getUserRepository().findUserByUserName(userName).getFirstName());
+        model.addAttribute("userName", userService.getUserRepository().findUserByUserName(userName).getUserName());
 
         return "index_admin";
     }
 
     @RequestMapping("/admin/addstory")
     public String displayAddStory(@RequestParam() String userName, Model model) {
-        storyService.displayAdminForm(userName, model, userService.getUserRepository().findUserByUserName(userName));
+
+        storyService.displayAdminForm(userName, model, userService.getUserRepository().findUserByUserName(userName), commentService, userService);
 
         return "admin_addstory";
     }
@@ -55,6 +67,14 @@ public class StoryController {
         model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
         model.addAttribute("users", userService.getUserRepository().findAll());
         return "index_admin" ;
+    }
+
+    @RequestMapping("/editstory")
+    public String displayEditStory(@RequestParam() String userName, @RequestParam() long storyId, Model model) {
+        model.addAttribute("s", storyService.getStoryRepository().findStoryById(storyId));
+        storyService.displayAdminForm(userName, model, userService.getUserRepository().findUserByUserName(userName), commentService, userService);
+
+        return "admin_addstory";
     }
 
 }

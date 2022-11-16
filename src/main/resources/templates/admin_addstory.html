@@ -34,14 +34,14 @@
     <form>
         <div class="mb-3 shadow-lg p-3 mb-5 bg-body rounded">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
-            <input name="title" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+            <input th:value="${s}!=null? ${s.title}: ''" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Title">
         </div>
         <div class="mb-3 shadow-lg p-3 mb-5 bg-body rounded">
             <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="20"></textarea>
+            <textarea th:text="${s}!=null? ${s.content}:''" name="content" class="form-control" id="exampleFormControlTextarea1" rows="20"></textarea>
         </div>
 
-            <button th:formaction="'/admin?userName=' + ${userName}" formmethod="post" class="btn btn-outline-primary">Add story</button>
+            <button th:text="${s}!=null?'Edit post': 'Add post'" th:formaction="${s}!=null?'/admin?userName=' + ${userName} + '&storyId='  + ${s.id}:'/admin?userName=' + ${userName}" formmethod="post" class="btn btn-outline-primary">Add post</button>
     </form>
 </div>
 </body>

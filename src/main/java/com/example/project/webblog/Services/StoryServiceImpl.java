@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Service
 public class StoryServiceImpl implements StoryService{
@@ -52,14 +53,29 @@ public class StoryServiceImpl implements StoryService{
     }
 
     @Override
-    public void displayAdminForm(String userName, Model model, User user) {
+    public void displayAdminForm(String userName, Model model, User user, CommentService commentService, UserService userService) {
         printStory(model);
-
-        //User user = userService.getUserRepository().findUserByUserName(userName);
-
         model.addAttribute("firstName", user.getFirstName());
-        model.addAttribute("userName", user.getUserName());
-    }
+        model.addAttribute("userName", userName);
 
+    }
+    @Override
+    public void editStory(String userName, String title, String content, User user, UserRepository userRepository, Optional<Long> storyId, Model model) {
+        model.addAttribute("firstName", user.getFirstName());
+        model.addAttribute("userName", userName);
+
+        Story story = storyRepository.findStoryById(storyId);
+        story.setTitle(title);
+        story.setContent(content);
+        story.setCreationDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        story.setUser(user);
+
+        user.getStories().add(story);
+
+        storyRepository.save(story);
+        userRepository.save(user);
+
+        printStory(model);
+    }
 
 }
