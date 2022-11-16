@@ -41,17 +41,36 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @RequestMapping(value = "/registration")
     public String displayRegistration(@RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName, @RequestParam(required = false) String userName, @RequestParam(required = false) String password, Model model) {
         return userService.registration(firstName, lastName, userName, password, model);
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login")
     public String login(@RequestParam(required = false) String userName, @RequestParam(required = false) String password, Model model) {
         storyService.printStory(model);
         model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
         model.addAttribute("users", userService.getUserRepository().findAll());
-        model.addAttribute("loggedinuser",userService.getUserRepository().findUserByUserName(userName));
-        return userService.login(userName, password,model);
+        model.addAttribute("loggedinuser", userService.getUserRepository().findUserByUserName(userName));
+        return userService.login(userName, password, model);
+    }
+
+    @RequestMapping("/home")
+    public String displayHome(@RequestParam String userName, Model model) {
+        storyService.printStory(model);
+        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
+        model.addAttribute("users", userService.getUserRepository().findAll());
+
+        User user = userService.getUserRepository().findUserByUserName(userName);
+
+        model.addAttribute("firstName", user.getFirstName());
+        model.addAttribute("userName", user.getUserName());
+        model.addAttribute("loggedinuser", user);
+
+        if (user.isAdmin()) {
+            return "index_admin";
+        }
+
+        return "index_user";
     }
 }

@@ -1,5 +1,6 @@
 package com.example.project.webblog.Controllers;
 
+import com.example.project.webblog.Services.CommentService;
 import com.example.project.webblog.Services.StoryService;
 import com.example.project.webblog.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +14,19 @@ public class StoryController {
 
     private final StoryService storyService;
     private UserService userService;
+    private CommentService commentService;
 
     @Autowired
-    public StoryController(StoryService storyService, UserService userService) {
+    public StoryController(StoryService storyService, UserService userService, CommentService commentService) {
         this.storyService = storyService;
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     @RequestMapping("/admin")
     public String displayAdmin(@RequestParam(required = false) String userName, @RequestParam(required = false) String title, @RequestParam(required = false) String content, Model model) {
         storyService.addStory(userName, title, content, userService.getUserRepository().findUserByUserName(userName), userService.getUserRepository(), model);
+        model.addAttribute("comments", commentService.getCommentRepository().findByOrderByCreationDateAsc());
 
         return "index_admin";
     }
