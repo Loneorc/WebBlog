@@ -19,7 +19,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
     private String creationDate;
 

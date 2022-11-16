@@ -63,7 +63,7 @@ th:if="${isNull} or ${isEmpty}" th:text="${result}">Please try again. </p>
                         th:text="${comment.creationDate}">creation date
                     </li>
                     <li class="list-group-item" th:if="${story.id} == ${comment.story.id}"
-                        th:text="${comment.content}"></li>
+                        th:text="${comment.content}" style="word-break: break-all"></li>
 
                 </ul>
             </form>
