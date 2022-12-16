@@ -29,16 +29,16 @@ public class StoryController {
     }
 
     @RequestMapping("/admin")
-    public String displayAdmin(@RequestParam(required = false) String userName, @RequestParam(required = false) String title, @RequestParam(required = false) String content,@RequestParam() Optional<Long> storyId, Model model) {
+    public String displayAdmin(@RequestParam(required = false) String userName, @RequestParam(required = false) String title, @RequestParam(required = false) String content, @RequestParam() Optional<Long> storyId, Model model) {
         model.addAttribute("firstName", userService.getUserRepository().findUserByUserName(userName).getFirstName());
         model.addAttribute("userName", userService.getUserRepository().findUserByUserName(userName).getUserName());
 
         if (storyId.isPresent()) {
-            if (!storyService.editStory(userName, title, content, userService.getUserRepository().findUserByUserName(userName), userService.getUserRepository(),storyId, model)) {
+            if (!storyService.editStory(userName, title, content, userService.getUserRepository().findUserByUserName(userName), userService.getUserRepository(), storyId, model)) {
                 return "admin_addstory";
             }
-        }else {
-            if (!storyService.addStory(userName, title, content, userService.getUserRepository().findUserByUserName(userName), userService.getUserRepository(), model)){
+        } else {
+            if (!storyService.addStory(userName, title, content, userService.getUserRepository().findUserByUserName(userName), userService.getUserRepository(), model)) {
                 return "admin_addstory";
             }
         }
@@ -58,7 +58,7 @@ public class StoryController {
     }
 
     @RequestMapping("/deletestory")
-    public String deleteStory (@RequestParam() String userName, @RequestParam()long storyId, Model model) {
+    public String deleteStory(@RequestParam() String userName, @RequestParam() long storyId, Model model) {
         commentService.getCommentRepository().deleteAllByStoryId(storyId);
         storyService.getStoryRepository().deleteById(storyId);
 
@@ -70,7 +70,7 @@ public class StoryController {
 
         commentService.printComments(model);
         userService.printUsers(model);
-        return "index_admin" ;
+        return "index_admin";
     }
 
     @RequestMapping("/editstory")

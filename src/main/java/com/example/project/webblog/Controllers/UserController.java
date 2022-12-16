@@ -61,8 +61,9 @@ public class UserController {
 
         return "index_user";
     }
+
     @RequestMapping("/setadmin")
-    public String displaySetAdmin(@RequestParam() String userName, Model model, @RequestParam() Optional<Long> userId){
+    public String displaySetAdmin(@RequestParam() String userName, Model model, @RequestParam() Optional<Long> userId) {
         userService.setAdmin(userName, model, userId);
 
         return "admin_setadmin";

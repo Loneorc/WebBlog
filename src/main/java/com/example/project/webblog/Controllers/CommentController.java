@@ -25,7 +25,7 @@ public class CommentController {
 
     @RequestMapping("/addcomment")
     public String addComment(@RequestParam(required = false) String userName, @RequestParam(required = false) String commentContent, Model model
-    , @RequestParam(required = false) long storyId) {
+            , @RequestParam(required = false) long storyId) {
 
         commentService.addComment(userName, commentContent, model, storyId, userService.getUserRepository(), storyService.getStoryRepository());
 
@@ -34,9 +34,9 @@ public class CommentController {
         commentService.printComments(model);
         userService.printUsers(model);
 
-        model.addAttribute("loggedinuser",userService.getUserRepository().findUserByUserName(userName));
+        model.addAttribute("loggedinuser", userService.getUserRepository().findUserByUserName(userName));
 
-        if(userService.getUserRepository().findUserByUserName(userName).isAdmin()){
+        if (userService.getUserRepository().findUserByUserName(userName).isAdmin()) {
             return "index_admin";
         }
 
@@ -45,16 +45,16 @@ public class CommentController {
 
     @RequestMapping("/deletecomment")
     public String deleteComment(@RequestParam(required = false) String userName, Model model
-            , @RequestParam(required = false) long commentId){
+            , @RequestParam(required = false) long commentId) {
 
         commentService.deleteComment(userName, model, commentId, userService.getUserRepository());
         storyService.printStories(model);
 
         commentService.printComments(model);
         userService.printUsers(model);
-        model.addAttribute("loggedinuser",userService.getUserRepository().findUserByUserName(userName));
+        model.addAttribute("loggedinuser", userService.getUserRepository().findUserByUserName(userName));
 
-        if(userService.getUserRepository().findUserByUserName(userName).isAdmin()){
+        if (userService.getUserRepository().findUserByUserName(userName).isAdmin()) {
             return "index_admin";
         }
 
